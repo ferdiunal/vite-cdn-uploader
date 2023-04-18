@@ -3,7 +3,7 @@ import path from "node:path"
 import * as dotenv from "dotenv"
 import { I_Options } from './interfaces';
 import { Uploader } from './uploader';
-import  * as Providers from "./providers"
+import  * as providers from "./providers"
 
 dotenv.config()
 
@@ -27,4 +27,4 @@ export const cdnUploaderPlugin = (options: I_Options): Plugin => {
 }
 
 
-export { cdnUploaderPlugin as default,  Providers}
+export { cdnUploaderPlugin as default,  providers}

@@ -30,6 +30,22 @@ export class Uploader {
         return allFiles;
     }
 
+    private getFilePath(filePath: string) {
+        filePath = filePath.replace(
+            this.options.root + "/",
+            ""
+        )
+
+        if(this.options.prefixDir) {
+            return path.join(
+                this.options.prefixDir,
+                filePath
+            )
+        }
+
+        return filePath
+    }
+
 
     async upload() {
         const files = this.files(
@@ -47,7 +63,7 @@ export class Uploader {
         
             await this.options.provider.upload(
                 fs.readFileSync(file),
-                file
+                this.getFilePath(file)
             )
         
             this.bar.update(process + 1)

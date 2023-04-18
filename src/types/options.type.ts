@@ -4,6 +4,7 @@ export type T_Options = {
     provider: Provider,
     root?: string,
     buildDir?: string,
+    prefixDir?: string,
 }
 
 export type T_ProviderOptions = Record<string, string | {
