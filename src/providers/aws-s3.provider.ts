@@ -30,9 +30,10 @@ export class AwsS3Provider implements Provider {
     async upload(file: string | Buffer, filePath: string): Promise<void> {
         try {
             const params = {
+                ACL: "public-read",
                 Bucket: this.bucket,
                 Key: filePath,
-                Body: file
+                Body: file,
             };
 
             await this.s3.upload(params).promise()
