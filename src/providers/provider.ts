@@ -5,6 +5,6 @@ export abstract class Provider {
 
     abstract config(): T_ProviderOptions;
 
-    abstract upload(file: Buffer | ReadStream | string, filePath: string): Promise<void>;
+    abstract upload(file: Buffer | ReadStream | string, contentType: string, filePath: string): Promise<void>;
 
 }

@@ -34,12 +34,14 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
-    "@types/cli-progress": "^3.11.0",
     "@aws-sdk/client-s3": "^3.50.0",
     "@azure/storage-blob": "^12.13.1",
+    "@types/cli-progress": "^3.11.0",
+    "@types/mime": "^3.0.1",
     "aws-sdk": "^2.1075.0",
     "cli-progress": "^3.12.0",
     "dotenv": "^16.0.3",
+    "mime": "^3.0.0",
     "node-fetch": "^3.1.2"
   }
 }
