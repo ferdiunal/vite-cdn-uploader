@@ -14,8 +14,8 @@ export const cdnUploaderPlugin = (options: I_Options): Plugin => {
         apply: (_, env): boolean => env.command === "build",
 
         configResolved(config) {
-            options.root = config.root
-            options.buildDir = path.join(config.root, config.build.outDir)
+            options.root = options.root || config.root
+            options.buildDir = options.buildDir || path.join(config.root, config.build.outDir)
         },
 
         closeBundle() {
