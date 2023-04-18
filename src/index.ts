@@ -2,7 +2,7 @@ import type { Plugin} from 'vite';
 import path from "node:path"
 import { I_Options } from './interfaces';
 import { Uploader } from './uploader';
-
+import  * as Providers from "./providers"
 
 export const cdnUploaderPlugin = (options: I_Options): Plugin => {
     return {
@@ -22,3 +22,6 @@ export const cdnUploaderPlugin = (options: I_Options): Plugin => {
     }
 
 }
+
+
+export { cdnUploaderPlugin as default,  Providers}

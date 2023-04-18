@@ -1,12 +1,17 @@
 import fs from "node:fs"
 import path from "node:path"
+import * as progress from "cli-progress"
 import { I_Options } from "./interfaces";
 
 export class Uploader {
 
+    private readonly bar: progress.GenericBar
+
     constructor(
         private readonly options: I_Options
-    ) { }
+    ) {
+        this.bar = new progress.SingleBar({}, progress.Presets.shades_classic);
+    }
 
     private files(directoryPath: string): string[] {
         let allFiles: string[] = [];
@@ -31,20 +36,24 @@ export class Uploader {
             this.options.buildDir as string
         )
 
-        console.log(files)
-        // let process = 0;
+        this.bar.start(
+            files.length,
+            0
+        )
 
+        let process = 0
 
-        // for await (const file of files) {
+        for await (const file of files) {
         
-        //     await this.options.provider.upload(
-        //         fs.readFileSync(file),
-        //         file
-        //     )
+            await this.options.provider.upload(
+                fs.readFileSync(file),
+                file
+            )
         
-        //     process++
+            this.bar.update(process + 1)
+        }
 
-        // }
+        this.bar.stop()
 
     }
 
