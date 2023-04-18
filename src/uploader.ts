@@ -42,13 +42,25 @@ export class Uploader {
         return filePath
     }
 
+    private clearConsole() {
+        process.stdout.write(
+          process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H'
+        );
+      }
+
     async fileUpload(file: string) {
+        const filePath = this.getFilePath(file)
         const fileStream = fs.createReadStream(file);
         const fileStats = fs.statSync(file);
 
-        const bar = new progress.SingleBar({}, progress.Presets.shades_classic)
-        bar.start(fileStats.size, 0);
+        this.clearConsole()
+        
+        console.log(filePath + "\n")
 
+        const bar = new progress.SingleBar({}, progress.Presets.shades_classic)
+
+        bar
+        bar.start(fileStats.size, 0);
 
         fileStream.on('data', (chunk) => {
             bar.increment(chunk.length);
@@ -57,7 +69,7 @@ export class Uploader {
         try {
             await this.options.provider.upload(
                 fileStream,
-                this.getFilePath(file)
+                filePath
             )   
         } catch (e) {
             console.error(e)
@@ -72,7 +84,6 @@ export class Uploader {
         )
 
         for await (const file of files) {
-        
             await this.fileUpload(file)
         }
 
