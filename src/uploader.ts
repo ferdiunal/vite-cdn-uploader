@@ -4,13 +4,9 @@ import * as progress from "cli-progress"
 import { I_Options } from "./interfaces";
 
 export class Uploader {
-
-    private readonly bar: progress.GenericBar
-
     constructor(
         private readonly options: I_Options
     ) {
-        this.bar = new progress.SingleBar({}, progress.Presets.shades_classic);
     }
 
     private files(directoryPath: string): string[] {
@@ -46,30 +42,39 @@ export class Uploader {
         return filePath
     }
 
+    async fileUpload(file: string) {
+        const fileStream = fs.createReadStream(file);
+        const fileStats = fs.statSync(file);
+
+        const bar = new progress.SingleBar({}, progress.Presets.shades_classic)
+        bar.start(fileStats.size, 0);
+
+
+        fileStream.on('data', (chunk) => {
+            bar.increment(chunk.length);
+        });
+
+        try {
+            await this.options.provider.upload(
+                fileStream,
+                this.getFilePath(file)
+            )   
+        } catch (e) {
+            console.error(e)
+        } finally {
+            bar.stop();
+        }
+    }
 
     async upload() {
         const files = this.files(
             this.options.buildDir as string
         )
 
-        this.bar.start(
-            files.length,
-            0
-        )
-
-        let process = 0
-
         for await (const file of files) {
         
-            await this.options.provider.upload(
-                fs.readFileSync(file),
-                this.getFilePath(file)
-            )
-        
-            this.bar.update(process + 1)
+            await this.fileUpload(file)
         }
-
-        this.bar.stop()
 
     }
 

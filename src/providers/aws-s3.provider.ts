@@ -28,13 +28,17 @@ export class AwsS3Provider implements Provider {
     }
 
     async upload(file: string | Buffer, filePath: string): Promise<void> {
-        const params = {
-            Bucket: this.bucket,
-            Key: filePath,
-            Body: file
-          };
-      
-          await this.s3.upload(params).promise();
+        try {
+            const params = {
+                Bucket: this.bucket,
+                Key: filePath,
+                Body: file
+            };
+
+            await this.s3.upload(params).promise()
+        } catch (e) {
+            await Promise.reject(e)
+        }
     }
 
 }
