@@ -1,6 +1,7 @@
 import fs from "node:fs"
 import path from "node:path"
 import * as progress from "cli-progress"
+import mime from "mime"
 import { I_Options } from "./interfaces";
 
 export class Uploader {
@@ -67,8 +68,10 @@ export class Uploader {
         });
 
         try {
+            const contentType = mime.getType(filePath) || 'application/octet-stream';
             await this.options.provider.upload(
                 fileStream,
+                contentType,
                 filePath
             )   
         } catch (e) {
