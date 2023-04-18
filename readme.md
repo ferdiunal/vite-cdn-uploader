@@ -51,6 +51,21 @@ export default {
 };
 ```
 
+If you are using a custom build output path, such as in the [Laravel Framework](https://github.com/laravel/laravel) where the build output is in the public folder, you can follow the example below:
+
+```javascript
+import path from "node:path"
+
+export default {
+  plugins: [
+    cdnUploaderPlugin({
+      provider: new providers.AwsS3Provider(),
+      root: path.join(__dirname, 'public'),
+    }),
+  ],
+};
+```
+
 ### Custom Provider 🎛
 
 Create a custom provider by defining a class with a `config` method and an `upload` method:
