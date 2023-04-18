@@ -2,8 +2,9 @@
   "name": "vite-cdn-uploader",
   "version": "0.1.0",
   "description": "A Vite plugin to upload built files to various CDN providers",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
+    "preinstall": "tsc",
     "test": "jest",
     "build": "tsc"
   },
