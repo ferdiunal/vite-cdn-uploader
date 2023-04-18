@@ -24,6 +24,21 @@ First, import the plugin in your Vite configuration file:
 import { cdnUploaderPlugin, providers } from "vite-cdn-uploader"
 ```
 
+If your project does not have an `.env` file yet:
+
+```bash
+touch .env
+```
+
+Then, add the following content to your `.env` file:
+
+```ini
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=
+AWS_BUCKET=
+```
+
 Then, add the plugin to the `plugins` array in your Vite configuration:
 
 ```javascript
