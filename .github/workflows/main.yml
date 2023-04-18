@@ -28,6 +28,6 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
 
       - name: Publish package
-        run: npm run ci-publish ${{ github.ref_name }}
+        run: npm run publish ${{ github.ref_name }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
