@@ -13,7 +13,10 @@ export class AwsS3Provider implements Provider {
             secretAccessKey: String(config.credentials?.secretAccessKey),
             region: String(config.region)
         })
-
+        console.log(process.env.AWS_BUCKET);
+        console.log(process.env.AWS_ACCESS_KEY_ID);
+        console.log(process.env.AWS_SECRET_ACCESS_KEY);
+        console.log(process.env.AWS_DEFAULT_REGION);
         this.bucket = process.env.AWS_BUCKET as string
     }
 
