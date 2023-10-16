@@ -13,8 +13,8 @@ export class AwsS3Provider implements Provider {
             secretAccessKey: String(config.credentials?.secretAccessKey),
             region: String(config.region)
         })
-
-        this.bucket = process.env.AWS_BUCKET as string
+        
+        this.bucket = (process.env.AWS_CDN_BUCKET ?? process.env.AWS_BUCKET) as string
     }
 
     config(): T_ProviderOptions {

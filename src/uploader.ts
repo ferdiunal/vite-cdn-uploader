@@ -86,10 +86,8 @@ export class Uploader {
             this.options.buildDir as string
         )
 
-        for await (const file of files) {
-            await this.fileUpload(file)
-        }
-
+        const uploadPromises = files.map(file => this.fileUpload(file));
+        await Promise.all(uploadPromises);
     }
 
 }
